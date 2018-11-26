@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %} Productos mas vendidos{% endblock %}
+{% block page_content %}
+<div id="wrapper" class="container">
+    <form method="POST" action="/mas_vendidos">
+        {{ form.csrf_token }}
+        <fieldset>
+            <legend class="legend"><h4> Listar los productos mas vendidos</h4></legend>
+            <div class="form-group">
+                <div class="col-md-12">
+                   <div class="row">
+                        <div class="col-xs-12">
+                            <div class="input-group">
+                                {{form.cantidad(class="form-control", placeholder="Ingrese cantidad de items a mostrar...")}}
+                                <span class="input-group-btn">{{form.submit(class="btn btn-clientes")}}</span>
+                            </div>
+                             {% for message in form.cantidad.errors %}
+                                    <p style="color:goldenrod;"> {{ message }} </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        {% if fc %}
+        <br>
+        <br>
+        <div class="table-responsive">
+            <h3 class="titulo-consulta"><h4> El producto mas vendido es: {{consulta[0][1]}}</h3></h4>
+            
+            <table class="table">
+                <tr>
+                    <th align=" ">CODIGO</th>
+                    <th align=" ">PRODUCTO</th>
+                    <th align=" " >{{msg2}}</th>
+                </tr>
+                {% for cl in consulta %}
+                <tr>
+                    <td align=" ">{{ cl[0] }}</td>
+                    <td align=" ">{{ cl[1] }}</td>
+                    <td align=" ">{{ cl[2] }}</td>
+                </tr>
+                {% endfor %}
+        {%endif%}
+        </div>
+    </form>
+
+
+</div>
+{% endblock %}
+
